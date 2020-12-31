@@ -1,5 +1,6 @@
 package guru.sfg.brewery.config;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -7,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -46,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("{sha256}4617111016211f141eb1f5c5eda7909ff38884f395efbacebd0bbe6c68783aa41a5db7f9eff6e6c8")
                 .roles("USER");
 
-        auth.inMemoryAuthentication().withUser("scott").password("{ldap}{SSHA}BmkyA+QnqpAu+/QGZ0KmF61cp58TGnS+UVXlGw==").roles("CUSTOMER");
+        auth.inMemoryAuthentication()
+                .withUser("scott").password("{bcrypt15}$2a$15$aeC3xXE71/oODEbQCJu2ouI4GLvHk1gg94086GSax3/fZR6SDCnRu")
+                .roles("CUSTOMER");
     }
 
     //    @Override
