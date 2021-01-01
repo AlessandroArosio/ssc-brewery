@@ -44,7 +44,7 @@ public class UserDataLoader implements CommandLineRunner {
 
         userRepository.save(User.builder()
                 .username("scott")
-                .password(passwordEncoder.encode("{bcrypt}tiger"))
+                .password(passwordEncoder.encode("tiger"))
                 .authority(customer)
                 .build());
 
