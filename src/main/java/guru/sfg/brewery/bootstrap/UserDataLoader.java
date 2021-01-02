@@ -26,9 +26,9 @@ public class UserDataLoader implements CommandLineRunner {
     }
 
     private void loadSecurityData() {
-        var admin = authorityRepository.save(Authority.builder().role("ADMIN").build());
-        var userRole = authorityRepository.save(Authority.builder().role("USER").build());
-        var customer = authorityRepository.save(Authority.builder().role("CUSTOMER").build());
+        var admin = authorityRepository.save(Authority.builder().role("ROLE_ADMIN").build());
+        var userRole = authorityRepository.save(Authority.builder().role("ROLE_USER").build());
+        var customer = authorityRepository.save(Authority.builder().role("ROLE_CUSTOMER").build());
 
         userRepository.save(User.builder()
                 .username("spring")
