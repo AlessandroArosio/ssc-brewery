@@ -3,7 +3,6 @@ package guru.sfg.brewery.config;
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,17 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(authorize -> authorize
                         .antMatchers("/h2-console/**").permitAll() // not use in PROD
-                        .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
-                        .antMatchers("/beers/find", "/beers*")
-                            .hasAnyRole("CUSTOMER", "ADMIN", "USER")
-                        .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}")
-                            .hasAnyRole("CUSTOMER", "ADMIN", "USER")
-                        .mvcMatchers("/brewery/breweries")
-                            .hasAnyRole("CUSTOMER", "ADMIN")
-                        .mvcMatchers(HttpMethod.GET, "/brewery/api/v1/breweries")
-                            .hasAnyRole("ADMIN", "CUSTOMER")
-                        .mvcMatchers("/beers/find", "/beers/{beerId}")
-                            .hasAnyRole("CUSTOMER", "ADMIN", "USER"))
+                        .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll())
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
