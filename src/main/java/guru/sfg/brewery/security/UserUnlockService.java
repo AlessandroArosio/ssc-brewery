@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class UserUnlockService {
     private final UserRepository userRepository;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 30000)
     public void unlockAccounts() {
         log.debug("Running Unlock accounts...");
 
