@@ -99,18 +99,21 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                 .username("stpete")
                 .password(passwordEncoder.encode("password"))
                 .customer(stPeteCustomer)
+                .role(customerRole)
                 .build());
 
         var dunedinUser = userRepository.save(User.builder()
                 .username("dunedin")
                 .password(passwordEncoder.encode("password"))
                 .customer(dunedinCustomer)
+                .role(customerRole)
                 .build());
 
         var keywestUser = userRepository.save(User.builder()
                 .username("keywest")
                 .password(passwordEncoder.encode("password"))
                 .customer(keywestCustomer)
+                .role(customerRole)
                 .build());
 
         // create ORDERS
@@ -228,10 +231,12 @@ public class DefaultBreweryLoader implements CommandLineRunner {
         var readOrder = authorityRepository.save(Authority.builder().permission("order.read").build());
         var updateOrder = authorityRepository.save(Authority.builder().permission("order.update").build());
         var deleteOrder = authorityRepository.save(Authority.builder().permission("order.delete").build());
+        var pickupOrder = authorityRepository.save(Authority.builder().permission("order.pickup").build());
         var createOrderCustomer = authorityRepository.save(Authority.builder().permission("customer.order.create").build());
         var readOrderCustomer = authorityRepository.save(Authority.builder().permission("customer.order.read").build());
         var updateOrderCustomer = authorityRepository.save(Authority.builder().permission("customer.order.update").build());
         var deleteOrderCustomer = authorityRepository.save(Authority.builder().permission("customer.order.delete").build());
+        var pickupOrderCustomer = authorityRepository.save(Authority.builder().permission("customer.order.pickup").build());
 
         var adminRole = roleRepository.save(Role.builder().name("ADMIN").build());
         var customerRole = roleRepository.save(Role.builder().name("CUSTOMER").build());
@@ -241,11 +246,13 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                 createBeer, readBeer, updateBeer, deleteBeer,
                 createCustomer, readCustomer, updateCustomer, deleteCustomer,
                 createBrewery, readBrewery, updateBrewery, deleteBrewery,
-                createOrder, readOrder, updateOrder, deleteOrder)));
+                createOrder, readOrder, updateOrder, deleteOrder,
+                pickupOrder)));
 
         customerRole.setAuthorities(new HashSet<>(Set.of(
                 readBeer, readCustomer, readBrewery,
-                createOrderCustomer, readOrderCustomer, updateOrderCustomer, deleteOrderCustomer)));
+                createOrderCustomer, readOrderCustomer, updateOrderCustomer, deleteOrderCustomer,
+                pickupOrderCustomer)));
 
         userRole.setAuthorities(new HashSet<>(Set.of(readBeer)));
 
