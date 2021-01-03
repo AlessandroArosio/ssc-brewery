@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // this works globally
+        // this works globally (overridden if configured in spring security too
         registry.addMapping("/**").allowedMethods("GET", "POST", "PUT"); //.allowedOrigins("*");
     }
 }
